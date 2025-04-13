@@ -3,11 +3,11 @@
 import { sdk } from '@farcaster/frame-sdk';
 import { farcasterFrame as frameConnector } from '@farcaster/frame-wagmi-connector';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { WagmiProvider, useAccount, useConnect, useSignMessage, useWriteContract } from 'wagmi';
 import { config } from './wagmiConfig';
 import styles from './page.module.css';
-import './globals.css'; // Impor globals.css (diperbaiki)
+import './globals.css';
 import { parseEther } from 'viem';
 
 const queryClient = new QueryClient();
@@ -39,13 +39,13 @@ function ConnectMenu() {
   const { isConnected, address } = useAccount();
   const { connect } = useConnect();
 
-  if (isConnected) {
+  if (isConnected && address) {
     return (
       <div className={styles.connected}>
         <p className={styles.text}>
-          Connected: {address?.slice(0, 6)}...{address?.slice(-4)}
+          Connected: {address.slice(0, 6)}...{address.slice(-4)}
         </p>
-        <WordGuessGame />
+        <WordGuessGame address={address} />
       </div>
     );
   }
@@ -64,7 +64,7 @@ function ConnectMenu() {
   );
 }
 
-function WordGuessGame() {
+function WordGuessGame({ address }: { address: `0x${string}` }) {
   const words = [
     { word: "SUPERHERO", hint: "A fictional character with extraordinary powers" },
     { word: "PASADENA", hint: "A city in California, USA" },
@@ -78,16 +78,15 @@ function WordGuessGame() {
   const [showHint, setShowHint] = useState(false);
   const maxWrongGuesses = 5;
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     const randomWord = words[Math.floor(Math.random() * words.length)];
     setWordObj(randomWord);
     setGuessedLetters([]);
     setWrongGuesses(0);
     setGameStatus("playing");
     setShowHint(false);
-  };
+  }, []);
 
-  // Perbaiki useEffect dengan menambahkan resetGame ke dependency array
   useEffect(() => {
     resetGame();
   }, [resetGame]);
@@ -160,7 +159,7 @@ function WordGuessGame() {
                 Congratulations! You won! The word was <strong>{wordObj.word}</strong>.
               </p>
               <SignButton />
-              <MintNFTButton word={wordObj.word} />
+              <MintNFTButton word={wordObj.word} address={address} />
             </>
           )}
           {gameStatus === "lost" && (
@@ -211,9 +210,8 @@ function SignButton() {
   );
 }
 
-function MintNFTButton({ word }: { word: string }) {
+function MintNFTButton({ word, address }: { word: string; address: `0x${string}` }) {
   const { writeContract, isPending, error } = useWriteContract();
-  const { address } = useAccount();
 
   const handleMint = () => {
     writeContract({
@@ -232,7 +230,7 @@ function MintNFTButton({ word }: { word: string }) {
       ],
       functionName: 'mint',
       args: [address, word],
-      value: parseEther('0.001'), // Biaya minting 0.001 ETH
+      value: parseEther('0.001'),
     });
   };
 
