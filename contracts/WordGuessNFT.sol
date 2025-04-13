@@ -33,7 +33,6 @@ contract WordGuessNFT is ERC721, Ownable {
         return string(
             abi.encodePacked(
                 "data:application/json;base64,",
-                // Contoh metadata sederhana
                 "eyJuYW1lIjoiV29yZCBHdWVzcyBWaWN0b3J5IiwgImRlc2NyaXB0aW9uIjoiV2lubmluZyB3b3JkOiA",
                 data.word,
                 "IiwgImF0dHJpYnV0ZXMiOiB7InRpbWVzdGFtcCI6IC",
