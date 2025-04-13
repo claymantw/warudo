@@ -1,120 +1,15 @@
-@import "tailwindcss";
+/* src/app/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   font-family: 'Poppins', Arial, sans-serif;
   background-color: #e6f0ff; /* Biru muda */
-  text-align: center;
-  padding: 20px;
-  font-weight: 400;
-}
-
-.title {
-  font-size: 2.5rem;
   color: #003087; /* Biru tua */
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-
-.connectContainer {
-  margin: 20px 0;
-}
-
-.connected {
-  margin: 20px 0;
-}
-
-.text {
-  font-size: 1.2rem;
-  color: #003087; /* Biru tua */
-  font-weight: 400;
-  margin: 10px 0;
-}
-
-.gameContainer {
-  margin-top: 20px;
-}
-
-.word {
-  font-size: 2.5rem;
-  letter-spacing: 5px;
-  margin: 20px 0;
-  color: #003087; /* Biru tua */
-  font-weight: 500;
-}
-
-.input {
-  margin: 20px 0;
-}
-
-.inputBox {
-  padding: 10px;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  width: 100px;
-  text-align: center;
-  border: 2px solid #003087; /* Biru tua */
-  border-radius: 5px;
-  background-color: #f0f7ff; /* Biru sangat muda */
-  color: #003087;
-  font-family: 'Poppins', Arial, sans-serif;
-  font-weight: 400;
-}
-
-.inputBox::placeholder {
-  color: #6688cc; /* Biru sedang */
-  font-weight: 400;
-}
-
-.button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #005bb5; /* Biru sedang */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Poppins', Arial, sans-serif;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.button:hover {
-  background-color: #003087; /* Biru tua */
-}
-
-.message {
-  font-size: 1.5rem;
-  color: #003087; /* Biru tua */
-  margin: 20px 0;
   font-weight: 400;
 }
